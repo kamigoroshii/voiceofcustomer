@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YUMEMIRU</title>
+    <!-- Add the font import for a true Matrix feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Canvas for the Matrix Rain Effect - positioned as background -->
+    <canvas id="matrixCanvas"></canvas>
+
+    <div class="container">
+        <h1>V-O-C</h1>
+
+        <div class="input-section">
+            <div class="upload-section">
+                <h2>Upload Audio File</h2>
+                <input type="file" id="audioUpload" accept="audio/*">
+                <button id="uploadButton">Analyze Uploaded Audio</button>
+            </div>
+
+            <div class="record-section">
+                <h2>Record Audio</h2>
+                <button id="recordButton">Start Recording</button>
+                <button id="stopButton" disabled>Stop Recording</button>
+                <button id="analyzeRecordedButton" disabled>Analyze Recorded Audio</button>
+                <div id="recordingStatus" class="status-message"></div>
+                <audio id="audioPlayback" controls style="display: none;"></audio>
+            </div>
+        </div>
+
+        <div id="loading" class="loading-spinner" style="display: none;"></div>
+        <div id="error" class="error-message" style="display: none;"></div>
+
+        <div id="resultsSection" class="results-section" style="display: none;">
+            <h2>Analysis Results</h2>
+            <div class="result-box">
+                <h3>Transcription:</h3>
+                <p id="transcriptionResult"></p>
+            </div>
+            <div class="result-box">
+                <h3>Sentiment:</h3>
+                <p id="sentimentResult"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main application JavaScript -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
