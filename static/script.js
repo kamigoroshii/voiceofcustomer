@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsSection = document.getElementById('resultsSection');
     const transcriptionResult = document.getElementById('transcriptionResult');
     const sentimentResult = document.getElementById('sentimentResult');
-    const containerElement = document.querySelector('.container'); // Get the main content container
-
+    // Removed containerElement as it's only needed for Matrix rain
+    
     let mediaRecorder;
     let audioChunks = [];
     let recordedBlob;
@@ -170,68 +170,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Matrix Rain Effect Logic ---
-    var matrixCanvas = document.getElementById("matrixCanvas");
-    var ctx = matrixCanvas.getContext("2d");
-
-    // Set initial canvas size
-    matrixCanvas.height = window.innerHeight;
-    matrixCanvas.width = window.innerWidth;
-
-    // Handle window resizing
-    window.addEventListener('resize', () => {
-        matrixCanvas.height = window.innerHeight;
-        matrixCanvas.width = window.innerWidth;
-        // Recalculate columns based on new width
-        columns = matrixCanvas.width / font_size;
-        // Reset drops to cover new columns, otherwise some columns might be missing
-        drops = [];
-        for (var x = 0; x < columns; x++) drops[x] = 1;
-    });
-
-    var txts = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン"; 
-    txts = txts.split("");
-    var font_size = 13.5;
-    var columns = matrixCanvas.width / font_size;
-    var drops = [];
-    for (var x = 0; x < columns; x++) drops[x] = 1;
-
-    function drawMatrixRain() {
-        // Semi-transparent black rectangle to fade out previous trails
-        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-        ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-
-        // Green color for the falling characters
-        ctx.fillStyle = "#00ff41"; 
-        ctx.font = font_size + "px 'Share Tech Mono'"; 
-
-        // Get the bounding rectangle of the central content container
-        // Ensure this is called inside the loop or when needed, as positions change
-        const containerRect = containerElement.getBoundingClientRect();
-        
-        for (var i = 0; i < drops.length; i++) {
-            var text = txts[Math.floor(Math.random() * txts.length)];
-            var xPos = i * font_size; // X position of the current column
-
-            // Adjust xPos based on scroll, though container is centered, it's relative to viewport
-            // For fixed canvas, containerRect.left/right is already viewport-relative.
-
-            // Only draw characters if the current column's x-position is outside the container's horizontal bounds
-            if (xPos < containerRect.left || xPos > containerRect.right) {
-                ctx.fillText(text, xPos, drops[i] * font_size);
-            }
-            
-            // Send the drop back to the top if it's off screen or randomly
-            if (drops[i] * font_size > matrixCanvas.height || Math.random() > 0.98) {
-                drops[i] = 0;
-            }
-
-            // Increment the drop position for the next frame
-            drops[i]++;
-        }
-    }
-
-    // Adjust drawing interval for speed (20ms is 50 frames per second)
-    setInterval(drawMatrixRain, 30); 
-
+    // Removed all Matrix Rain Effect Logic here
 }); // End of DOMContentLoaded
